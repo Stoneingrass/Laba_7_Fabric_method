@@ -1,7 +1,6 @@
 package shop;
 
 import com.sun.istack.internal.NotNull;
-import com.sun.xml.internal.ws.commons.xmlutil.Converter;
 import shop.dishes.*;
 import shop.fillings.*;
 import shop.shops.Shop;
@@ -187,6 +186,8 @@ public interface ShopsConsoleInput {
                     throw new Exception("Please input correct number.");
                 }
 
+                userInput = scanner.nextInt();
+
                 if(userInput<1) {
                     throw new Exception("Please input correct number.");
                 }
@@ -203,7 +204,7 @@ public interface ShopsConsoleInput {
          try {
             fillings.add(addFilling(shop));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+
         }
         try {
             shop.addProductToOrderList(chosenDish, quantity, fillings);
@@ -259,9 +260,6 @@ public interface ShopsConsoleInput {
                 }
 
                 userInput = scanner.nextInt();
-                if(userInput==0) {
-                    throw new Exception("Filling not added.");
-                }
 
                 if(userInput<0 || userInput > fillingsOptions.length) {
                     
@@ -274,6 +272,10 @@ public interface ShopsConsoleInput {
             catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
+        }
+
+        if(userInput==0) {
+            throw new Exception("Filling not added.");
         }
 
         //chosen filling
@@ -392,7 +394,7 @@ public interface ShopsConsoleInput {
             System.out.print("Fillings: ");
 
             if(dish.getFillings().size()==0) {
-                System.out.print("none.");
+                System.out.println("none.");
             }
             else {
                 for (Filling f: dish.getFillings()) {
